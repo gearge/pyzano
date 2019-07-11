@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+fpath=$(readlink -f "$0")
+fname=$(basename "$fpath")
+dname=$(dirname "$fpath")
+
+if which python3 &>/dev/null; then
+    echo "$fname: info: using python3 interpreter"
+    "$dname/python3/pyzano_gtk3.py" $*
+elif which python &>/dev/null; then
+    echo "$fname: info: using python2 interpreter"
+    "$dname/python2/pyzano_gtk2.py" $*
+else
+    echo "$fname: error: python interpreter could not be located" >&2
+    exit 1
+fi
